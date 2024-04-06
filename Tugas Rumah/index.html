@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <title>Form Registrasi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('/Assets/images.png'); 
+      background-size: cover; 
+      background-position: center; 
+      background-repeat: no-repeat; 
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.8); 
+      background-image: url('/Assets/Background.jpg'); 
+      background-size: cover; 
+      background-position: center;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }    
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    .input-container {
+      margin-bottom: 15px;
+    }
+
+    .input-container input[type="text"],
+    .input-container input[type="email"],
+    .input-container input[type="password"],
+    .input-container input[type="url"],
+    .input-container input[type="number"] {
+      width: calc(100% - 22px); 
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .input-container span.error {
+      color: red;
+      font-size: 12px;
+    }
+
+    input[type="submit"] {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    input[type="radio"] {
+      margin-right: 5px;
+      margin-left: 10px;
+    }
+    
+    span {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Form Registrasi</h1>
+  <form id="formKu" name="formKu" method="get" action="proses.php">
+    <div class="input-container">
+      <p>
+        Nama: <input type="text" name="name" id="name" /><span id="nameSpan"></span>
+      </p>
+    </div>
+    <div class="input-container">
+      <p>
+        Username: <input type="text" name="username" id="username" /><span id="usernameSpan"></span>
+      </p>
+    </div>
+    <div class="input-container">
+      <p>
+        Email: <input type="email" name="email" id="email" /><span id="emailSpan"></span>
+      </p>
+    </div>
+    <div class="input-container">
+      <p>
+        Password: <input type="password" name="pass" id="pass" /><span id="passSpan"></span>
+      </p>
+    </div>
+    <div class="input-container">
+      <p>
+        Konfirmasi Password: <input type="password" name="konfPass" id="konfPass" /><span id="konfPassSpan"></span>
+      </p>
+    </div>
+    <div class="input-container">
+      <p>
+        No Telepon: <input type="number" name="telepon" id="telepon" /><span id="teleponSpan"></span>
+      </p>
+    </div>
+    <div class="input-container" id="gender">
+      <p>
+        <input type="radio" name="gender" id="genderPria" /><span>Pria</span>
+        <input type="radio" name="gender" id="genderWanita" /><span>Wanita</span>
+        <span id="genderSpan"></span>
+      </p>
+    </div>
+    <div class="input-container">
+      <p>
+        Alamat Website: <input type="url" name="website" id="website" /><span id="websiteSpan"></span>
+      </p>
+    </div>
+    <p>
+      <input type="submit" name="submit" id="submit" value="Kirim Data" />
+    </p>
+  </form>
+  <script>
+    let formKuNode = document.getElementById("formKu");
+    let nameNode = document.getElementById("name");
+    let nameSpanNode = document.getElementById("nameSpan");
+    let usernameNode = document.getElementById("username");
+    let usernameSpanNode = document.getElementById("usernameSpan");
+    let emailNode = document.getElementById("email");
+    let emailSpanNode = document.getElementById("emailSpan");
+    let konfPassNode = document.getElementById("konfPass");
+    let konfPassSpanNode = document.getElementById("konfPassSpan");
+    let passNode = document.getElementById("pass");
+    let passSpanNode = document.getElementById("passSpan");
+    let teleponNode = document.getElementById("telepon");
+    let teleponSpanNode = document.getElementById("teleponSpan");
+    let genderPriaNode = document.getElementById("genderPria");
+    let genderWanitaNode = document.getElementById("genderWanita");
+    let genderSpanNode = document.getElementById("genderSpan");
+    let websiteNode = document.getElementById("website");
+    let websiteSpanNode = document.getElementById("websiteSpan");
+
+    const diProses = (e) => {
+      let nameError = "";
+
+      if (nameNode.value.trim() === "") {
+        nameError = "Nama harus diisi";
+      }
+
+      if (nameError !== "") {
+        nameSpanNode.innerHTML = nameError;
+        nameSpanNode.className = "error";
+        nameNode.style.border = "2px solid red";
+        e.preventDefault();
+      }
+
+      let usernameError = "";
+
+      if (usernameNode.value.trim() === "") {
+        usernameError = "Username harus diisi";
+      } else if (/\W/.test(usernameNode.value.trim())) {
+        usernameError = "Hanya bisa diisi karakter alfanumerik";
+      } else if (usernameNode.value.trim().length < 6) {
+        usernameError = "Username minimal 6 karakter";
+      }
+
+      if (usernameError !== "") {
+        usernameSpanNode.innerHTML = usernameError;
+        usernameSpanNode.className = "error";
+        usernameNode.style.border = "2px solid red";
+        e.preventDefault();
+      }
+      let emailError = "";
+
+      if (emailNode.value.trim() === "") {
+        emailError = "Email harus diisi";
+      }
+
+      if (emailError !== "") {
+        emailSpanNode.innerHTML = emailError;
+        emailSpanNode.className = "error";
+        emailNode.style.border = "2px solid red";
+        e.preventDefault();
+      }
+
+      let passError = "";
+      if (passNode.value.trim() === "") {
+        passError = "Password harus diisi";
+      } else if (passNode.value.trim().length < 6) {
+        passError = "Password minimal 6 karakter";
+      }
+
+      if (passError !== "") {
+        passSpanNode.innerHTML = passError;
+        passSpanNode.className = "error";
+        passNode.style.border = "2px solid red";
+        e.preventDefault();
+      }
+
+      let konfPassError = "";
+      if (konfPassNode.value.trim() === "") {
+        konfPassError = "Konfirmasi Password harus diisi";
+      } else if (konfPassNode.value.trim().length < 6) {
+        konfPassError = "Konfirmasi Password minimal 6 karakter";
+      } else if (konfPassNode.value !== passNode.value) {
+        konfPassError = "Konfirmasi Password tidak sama";
+      }
+
+      if (konfPassError !== "") {
+        konfPassSpanNode.innerHTML = konfPassError;
+        konfPassSpanNode.className = "error";
+        konfPassNode.style.border = "2px solid red";
+        e.preventDefault();
+      }
+
+      let teleponError = "";
+      if (teleponNode.value.trim() === "") {
+        teleponError = "Nomor Telepon harus diisi";
+      } else if (teleponNode.value.trim().length < 11) {
+        teleponError = "Nomor Telepon minimal 11 karakter";
+      }
+
+      if (teleponError !== "") {
+        teleponSpanNode.innerHTML = teleponError;
+        teleponSpanNode.className = "error";
+        teleponNode.style.border = "2px solid red";
+        e.preventDefault();
+      }
+
+      let genderError = "";
+
+      if (!genderPriaNode.checked && !genderWanitaNode.checked) {
+        genderSpanNode.textContent = "Anda harus memilih gender";
+        genderSpanNode.className = "error";
+        e.preventDefault(); 
+      } else {
+        genderSpanNode.textContent = "";
+        genderSpanNode.className = "";
+      }
+
+      let websiteError = "";
+
+      if (websiteNode.value.trim() === "") {
+        websiteError = "alamat website harus diisi";
+      }
+
+      if (websiteError !== "") {
+        websiteSpanNode.innerHTML = websiteError;
+        websiteSpanNode.className = "error";
+        websiteNode.style.border = "2px solid red";
+        e.preventDefault();
+      }
+    };
+
+    const hapusError = (e) => {
+      e.target.style.border = "";
+      e.target.parentElement.lastElementChild.innerHTML = "";
+    };
+
+    formKuNode.addEventListener("submit", diProses);
+    nameNode.addEventListener("focus", hapusError);
+    usernameNode.addEventListener("focus", hapusError);
+    emailNode.addEventListener("focus", hapusError);
+    passNode.addEventListener("focus", hapusError);
+    konfPassNode.addEventListener("focus", hapusError);
+    teleponNode.addEventListener("focus", hapusError);
+    websiteNode.addEventListener("focus", hapusError);
+  </script>
+</body>
+</html>
